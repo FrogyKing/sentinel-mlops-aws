@@ -1,0 +1,14 @@
+stages:
+  train:
+    cmd: uv run sentinel train --data data/raw/creditcard.csv --output artifacts/public --export-model artifacts/public/export/model.joblib
+    deps:
+      - data/raw/creditcard.csv
+      - src/sentinel/data.py
+      - src/sentinel/training.py
+      - src/sentinel/registry.py
+      - uv.lock
+    outs:
+      - artifacts/public/export/model.joblib
+    metrics:
+      - artifacts/public/evaluation.json:
+          cache: false

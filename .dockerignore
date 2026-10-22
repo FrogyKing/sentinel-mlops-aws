@@ -1,0 +1,10 @@
+.git
+.venv
+artifacts
+data
+tests
+docs
+infrastructure
+__pycache__
+*.tfstate*
+.env

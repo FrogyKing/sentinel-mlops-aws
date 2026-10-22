@@ -1,0 +1,35 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: uv run sentinel train --data data/raw/creditcard.csv --output
+      artifacts/public --export-model artifacts/public/export/model.joblib
+    deps:
+    - path: data/raw/creditcard.csv
+      hash: md5
+      md5: a25d81d664892dddf41c3c7656fb8f7b
+      size: 151672020
+    - path: src/sentinel/data.py
+      hash: md5
+      md5: 13d5a361a5191a23b20bee10a9ff9951
+      size: 3942
+    - path: src/sentinel/registry.py
+      hash: md5
+      md5: 57fe1e45434dfef88f119c48c5d25c5a
+      size: 6313
+    - path: src/sentinel/training.py
+      hash: md5
+      md5: 454ff9f38ae0d0b4b0a67e7e2e7ad4a2
+      size: 7872
+    - path: uv.lock
+      hash: md5
+      md5: c7f09b51290e1d6d0239603162869e4f
+      size: 329764
+    outs:
+    - path: artifacts/public/evaluation.json
+      hash: md5
+      md5: 97568d55c5f3f9cd70872139422698d4
+      size: 3282
+    - path: artifacts/public/export/model.joblib
+      hash: md5
+      md5: 3e2ff4fd3274aaf05fbbe191a2329f6d
+      size: 154051

@@ -1,0 +1,20 @@
+{
+  "scope": "Actual local execution on synthetic data; no AWS operations",
+  "normal_drift_detected": false,
+  "unlabeled_status": "awaiting_ground_truth",
+  "drift_detected": true,
+  "candidate_retrained": true,
+  "default_policy_deployment": {
+    "status": "rejected_by_policy",
+    "reason": "Candidate regresses champion quality"
+  },
+  "recovery_status": "actual_artifacts_promoted_and_rolled_back",
+  "recovery_policy_override": {
+    "min_pr_auc": 0.2,
+    "min_recall": 0.5,
+    "max_fpr": 0.15,
+    "max_pr_auc_regression": 0.2,
+    "max_recall_regression": 0.1
+  },
+  "recovery_failure_trigger": "simulated verification failure"
+}

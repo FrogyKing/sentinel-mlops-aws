@@ -1,0 +1,16 @@
+{
+  "scope": "local HTTP adapter, actual public-data model",
+  "status_code": 200,
+  "readiness": {
+    "status": "ready",
+    "model_version": "1e0ce7c5c98a7546"
+  },
+  "prediction": {
+    "request_id": "927b602a08a74d65acdbb34bca17ef65",
+    "model_version": "1e0ce7c5c98a7546",
+    "probability": 0.039195842085379774,
+    "threshold": 0.9500000000000001,
+    "is_fraud": false,
+    "latency_ms": 40.779
+  }
+}
