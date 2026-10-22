@@ -1,0 +1,92 @@
+{
+  "version": "a8a48952dc7b8fc2",
+  "selected_model": "baseline",
+  "synthetic": true,
+  "dataset_sha256": "1f64c97e437a1e0922c173cfa0126a9c56df7c4ae1f799a93924b883423b32c3",
+  "seed": 42,
+  "features": [
+    "amount",
+    "v1",
+    "v2",
+    "v3"
+  ],
+  "threshold": 0.54,
+  "split_rows": [
+    1500,
+    500,
+    500
+  ],
+  "selection": "Lowest validation business cost; test held out",
+  "cost_assumptions": {
+    "false_positive": 5,
+    "false_negative": 100
+  },
+  "validation": {
+    "baseline": {
+      "pr_auc": 0.7383456776955154,
+      "roc_auc": 0.9789444900191414,
+      "precision": 0.3548387096774194,
+      "recall": 0.9565217391304348,
+      "f1": 0.5176470588235295,
+      "false_positive_rate": 0.08385744234800839,
+      "business_cost": 0.6,
+      "false_positives": 40.0,
+      "false_negatives": 1.0,
+      "true_positives": 22.0
+    },
+    "challenger": {
+      "pr_auc": 0.7186792352200113,
+      "roc_auc": 0.9669127700300792,
+      "precision": 0.3283582089552239,
+      "recall": 0.9565217391304348,
+      "f1": 0.4888888888888889,
+      "false_positive_rate": 0.09433962264150944,
+      "business_cost": 0.65,
+      "false_positives": 45.0,
+      "false_negatives": 1.0,
+      "true_positives": 22.0
+    }
+  },
+  "test_models": {
+    "baseline": {
+      "pr_auc": 0.8604859530643705,
+      "roc_auc": 0.9704861111111112,
+      "precision": 0.47692307692307695,
+      "recall": 0.96875,
+      "f1": 0.6391752577319587,
+      "false_positive_rate": 0.07264957264957266,
+      "business_cost": 0.54,
+      "false_positives": 34.0,
+      "false_negatives": 1.0,
+      "true_positives": 31.0
+    },
+    "challenger": {
+      "pr_auc": 0.8970807995161523,
+      "roc_auc": 0.992721688034188,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "false_positive_rate": 0.06837606837606838,
+      "business_cost": 0.32,
+      "false_positives": 32.0,
+      "false_negatives": 0.0,
+      "true_positives": 32.0
+    }
+  },
+  "metrics": {
+    "pr_auc": 0.8604859530643705,
+    "roc_auc": 0.9704861111111112,
+    "precision": 0.47692307692307695,
+    "recall": 0.96875,
+    "f1": 0.6391752577319587,
+    "false_positive_rate": 0.07264957264957266,
+    "business_cost": 0.54,
+    "false_positives": 34.0,
+    "false_negatives": 1.0,
+    "true_positives": 31.0,
+    "latency_ms_per_row": 1.3979500004400809,
+    "evaluation_dataset_sha256": "8213d1021fe6afa3ac915e4458e054e160eab0a2f8a526e45dc810b6fdefd15b"
+  },
+  "sklearn_version": "1.9.1",
+  "training_source_sha256": "6cd8121f6649d1ef821e731182bd59686e7b6dec6d785cec5296e79523ba2725"
+}

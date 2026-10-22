@@ -1,0 +1,58 @@
+name: Approved AWS deployment
+on:
+  workflow_dispatch:
+    inputs:
+      authorize_spend:
+        description: 'Authorize this deployment within the reviewed USD 20 planning ceiling (not a spending cap)'
+        required: true
+        type: boolean
+        default: false
+      approved_model_uri:
+        description: 'S3 URI of the evaluated, explicitly approved model artifact'
+        required: true
+        type: string
+      model_sha256:
+        description: 'Trusted SHA256 from model review'
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  deploy:
+    if: inputs.authorize_spend
+    environment: production
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.5'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.14.0'
+          terraform_wrapper: false
+      - run: uv sync --frozen --dev
+      - run: uv run ruff check . && uv run mypy src && uv run pytest -q && uv run pip-audit
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+      - name: Fetch and verify approved artifact
+        env:
+          MODEL_URI: ${{ inputs.approved_model_uri }}
+          MODEL_SHA256: ${{ inputs.model_sha256 }}
+        run: |
+          mkdir -p artifacts/approved
+          aws s3 cp "$MODEL_URI" artifacts/approved/model.joblib
+          printf '%s  %s\n' "$MODEL_SHA256" artifacts/approved/model.joblib | sha256sum --check --strict
+      - name: Deploy approved model and infrastructure
+        env:
+          ACCOUNT: ${{ vars.AWS_ACCOUNT_ID }}
+          REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+          BUDGET_EMAIL: ${{ vars.BUDGET_EMAIL }}
+          STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+        run: uv run python scripts/cloud.py deploy --approve-cost --approve-deployment --account "$ACCOUNT" --region "$REGION" --budget-email "$BUDGET_EMAIL" --state-bucket "$STATE_BUCKET" --model artifacts/approved/model.joblib

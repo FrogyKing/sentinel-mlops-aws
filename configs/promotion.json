@@ -1,0 +1,7 @@
+{
+  "min_pr_auc": 0.2,
+  "min_recall": 0.5,
+  "max_fpr": 0.15,
+  "max_pr_auc_regression": 0.01,
+  "max_recall_regression": 0.02
+}
